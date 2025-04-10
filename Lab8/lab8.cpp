@@ -10,27 +10,27 @@ protected:
 
 public:
     Shape(string n) : name(n) {
-        objectCount++;
+        this->objectCount++;
     }
 
     virtual ~Shape() {
-        objectCount--; // Объект устах үед тоо буурна
+        this->objectCount--; // Объект устах үед тоо буурна
     }
 
     static void setObjectCount(int count) {
-        objectCount = count;
+        Shape::objectCount = count;
     }
 
     static int getObjectCount() {
-        return objectCount;
+        return Shape::objectCount;
     }
 
     virtual double getArea() = 0;
     virtual double getPerimeter() = 0;
 
     virtual void print() {
-        cout << "Shape: " << name << endl;
-        cout << "Area: " << getArea() << ", Perimeter: " << getPerimeter() << endl;
+        cout << "Shape: " << this->name << endl;
+        cout << "Area: " << this->getArea() << ", Perimeter: " << this->getPerimeter() << endl;
     }
 };
 
@@ -53,11 +53,18 @@ private:
     double radius;
 public:
     Circle(double xCoord, double yCoord, double r) : TwoD("Circle", xCoord, yCoord), radius(r) {}
-    double getArea() { return M_PI * radius * radius; }
-    double getPerimeter() { return 2 * M_PI * radius; }
+    
+    double getArea() { 
+        return M_PI * this->radius * this->radius; 
+    }
+
+    double getPerimeter() { 
+        return 2 * M_PI * this->radius; 
+    }
+
     void print() {
-        Shape::print();
-        cout << "  Center: (" << x << ", " << y << "), Radius: " << radius << endl;
+        this->Shape::print();
+        cout << "  Center: (" << this->x << ", " << this->y << "), Radius: " << this->radius << endl;
     }
 };
 
@@ -69,19 +76,26 @@ private:
     double x2, y2, x3, y3, x4, y4;
 public:
     Square(double xCoord, double yCoord, double s) : TwoD("Square", xCoord, yCoord), side(s) {
-        x2 = x + side; y2 = y;
-        x3 = x; y3 = y - side;
-        x4 = x + side; y4 = y - side;
+        this->x2 = this->x + this->side; this->y2 = this->y;
+        this->x3 = this->x; this->y3 = this->y - this->side;
+        this->x4 = this->x + this->side; this->y4 = this->y - this->side;
     }
-    double getArea() { return side * side; }
-    double getPerimeter() { return 4 * side; }
+
+    double getArea() { 
+        return this->side * this->side; 
+    }
+
+    double getPerimeter() { 
+        return 4 * this->side; 
+    }
+
     void print() {
-        Shape::print();
+        this->Shape::print();
         cout << "  Vertices: " << endl;
-        cout << "    Top Left: (" << x << ", " << y << ")" << endl;
-        cout << "    Top Right: (" << x2 << ", " << y2 << ")" << endl;
-        cout << "    Bottom Left: (" << x3 << ", " << y3 << ")" << endl;
-        cout << "    Bottom Right: (" << x4 << ", " << y4 << ")" << endl;
+        cout << "    Top Left: (" << this->x << ", " << this->y << ")" << endl;
+        cout << "    Top Right: (" << this->x2 << ", " << this->y2 << ")" << endl;
+        cout << "    Bottom Left: (" << this->x3 << ", " << this->y3 << ")" << endl;
+        cout << "    Bottom Right: (" << this->x4 << ", " << this->y4 << ")" << endl;
     }
 };
 
@@ -93,17 +107,24 @@ private:
     double x2, y2, x3, y3;
 public:
     Triangle(double xCoord, double yCoord, double s) : TwoD("Triangle", xCoord, yCoord), side(s) {
-        x2 = x - side / 2; y2 = y - sqrt(3) / 2 * side;
-        x3 = x + side / 2; y3 = y - sqrt(3) / 2 * side;
+        this->x2 = this->x - this->side / 2; this->y2 = this->y - sqrt(3) / 2 * this->side;
+        this->x3 = this->x + this->side / 2; this->y3 = this->y - sqrt(3) / 2 * this->side;
     }
-    double getArea() { return (sqrt(3) / 4) * side * side; }
-    double getPerimeter() { return 3 * side; }
+
+    double getArea() { 
+        return (sqrt(3) / 4) * this->side * this->side; 
+    }
+
+    double getPerimeter() { 
+        return 3 * this->side; 
+    }
+
     void print() {
-        Shape::print();
+        this->Shape::print();
         cout << "  Vertices: " << endl;
-        cout << "    Top: (" << x << ", " << y << ")" << endl;
-        cout << "    Left: (" << x2 << ", " << y2 << ")" << endl;
-        cout << "    Right: (" << x3 << ", " << y3 << ")" << endl;
+        cout << "    Top: (" << this->x << ", " << this->y << ")" << endl;
+        cout << "    Left: (" << this->x2 << ", " << this->y2 << ")" << endl;
+        cout << "    Right: (" << this->x3 << ", " << this->y3 << ")" << endl;
     }
 };
 
@@ -118,7 +139,6 @@ void bubbleSort(Shape* shapes[], int n) {
         }
     }
 }
-
 
 int main() {
     // Объектууд үүсгэнэ
