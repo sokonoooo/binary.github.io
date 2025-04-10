@@ -7,8 +7,12 @@ using namespace std;
 class Shape {
 protected:
    string name;
+   static int count; //статик хувьсагч зарлах
 public:
-   Shape(string n) : name(n) {}
+   Shape(string n) : name(n) {
+      count++; //// Объект үүсэхэд тоо нэмэгдэнэ
+   }
+   static int getCount() { return count; } //// Статик функц объектын тоог авах
    virtual double getArea() = 0;
    virtual double getPerimeter() = 0;
   
@@ -18,6 +22,7 @@ public:
    }
 };
 
+int Shape::count = 0;  // Статик хувьсагчийг анх эхлүүлэх
 
 // 2DShape
 class TwoD : public Shape {
@@ -34,12 +39,14 @@ private:
    double radius;
 public:
    Circle(double xCoord, double yCoord, double r) : TwoD("Circle", xCoord, yCoord), radius(r) {}
-   double getArea() { return M_PI * radius * radius; }
+   double getArea() { 
+      return M_PI * this->radius * this->radius; // this ашиглан radius-г зааж өгнө
+  }
    double getPerimeter() { return 2 * M_PI * radius; }
-   void print()  {
-       Shape::print();
-       cout << "  Center: (" << x << ", " << y << "), Radius: " << radius << endl;
-   }
+   void print() {
+      Shape::print();
+      cout << "  Center: (" << this->x << ", " << this->y << "), Radius: " << this->radius << endl;
+  }
 };
 
 
@@ -90,11 +97,15 @@ public:
 
 
 // Bubble sort
-void bubbleSort(Shape* shapes[], int n) {
-   for (int i = 0; i < n-1; i++) {
-       for (int j = 0; j < n-i-1; j++) {
-           if (shapes[j]->getArea() > shapes[j+1]->getArea()) {
-               swap(shapes[j], shapes[j+1]);
+void bubbleSort(Shape* shapes[], int n, bool byArea = true) {
+   for (int i = 0; i < n - 1; i++) {
+       for (int j = 0; j < n - i - 1; j++) {
+           bool swapCondition = byArea ? 
+               shapes[j]->getArea() > shapes[j + 1]->getArea() : 
+               shapes[j]->getPerimeter() > shapes[j + 1]->getPerimeter();
+
+           if (swapCondition) {
+               swap(shapes[j], shapes[j + 1]);
            }
        }
    }
@@ -126,3 +137,4 @@ int main() {
 
    return 0;
 }
+ 
