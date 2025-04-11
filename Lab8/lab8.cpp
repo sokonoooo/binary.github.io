@@ -2,7 +2,7 @@
 #include <cmath>
 using namespace std;
 
-// Shape классын тодорхойлолт
+// 🟦 Shape классын тодорхойлолт
 class Shape {
 protected:
     string name;
@@ -14,6 +14,7 @@ public:
     }
 
     virtual ~Shape() {
+        objectCount--;
         this->objectCount--; // Объект устах үед тоо буурна
     }
 
@@ -25,6 +26,7 @@ public:
         return Shape::objectCount;
     }
 
+    // Хийсвэр функцууд
     virtual double getArea() = 0;
     virtual double getPerimeter() = 0;
 
@@ -37,8 +39,7 @@ public:
 // Статик хувьсагчийн анхны утга
 int Shape::objectCount = 0;
 
-
-// 2DShape
+// 🟦 2DShape класс
 class TwoD : public Shape {
 protected:
     double x, y;
@@ -46,13 +47,24 @@ public:
     TwoD(string n, double xCoord, double yCoord) : Shape(n), x(xCoord), y(yCoord) {}
 };
 
-
-// Circle
+// 🟢 Circle класс
 class Circle : public TwoD {
 private:
     double radius;
 public:
     Circle(double xCoord, double yCoord, double r) : TwoD("Circle", xCoord, yCoord), radius(r) {}
+
+    double getArea() override {
+        return M_PI * radius * radius;
+    }
+
+    double getPerimeter() override {
+        return 2 * M_PI * radius;
+    }
+
+    void print() override {
+        Shape::print();
+        cout << "  Center: (" << x << ", " << y << "), Radius: " << radius << endl;
     
     double getArea() { 
         return M_PI * this->radius * this->radius; 
@@ -68,8 +80,7 @@ public:
     }
 };
 
-
-// Square
+// 🟡 Square класс
 class Square : public TwoD {
 private:
     double side;
@@ -80,6 +91,17 @@ public:
         this->x3 = this->x; this->y3 = this->y - this->side;
         this->x4 = this->x + this->side; this->y4 = this->y - this->side;
     }
+
+    double getArea() override {
+        return side * side;
+    }
+
+    double getPerimeter() override {
+        return 4 * side;
+    }
+
+    void print() override {
+        Shape::print();
 
     double getArea() { 
         return this->side * this->side; 
@@ -99,8 +121,7 @@ public:
     }
 };
 
-
-// Triangle
+// 🔺 Triangle класс
 class Triangle : public TwoD {
 private:
     double side;
@@ -110,6 +131,17 @@ public:
         this->x2 = this->x - this->side / 2; this->y2 = this->y - sqrt(3) / 2 * this->side;
         this->x3 = this->x + this->side / 2; this->y3 = this->y - sqrt(3) / 2 * this->side;
     }
+
+    double getArea() override {
+        return (sqrt(3) / 4) * side * side;
+    }
+
+    double getPerimeter() override {
+        return 3 * side;
+    }
+
+    void print() override {
+        Shape::print();
 
     double getArea() { 
         return (sqrt(3) / 4) * this->side * this->side; 
@@ -128,8 +160,7 @@ public:
     }
 };
 
-
-// Bubble sort
+// 🔄 Bubble sort функц
 void bubbleSort(Shape* shapes[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
@@ -140,8 +171,10 @@ void bubbleSort(Shape* shapes[], int n) {
     }
 }
 
+// 🔚 main функц
+
 int main() {
-    // Объектууд үүсгэнэ
+    // Дүрсүүд үүсгэх
     Circle c(0, 0, 5);
     Square s(1, 1, 4);
     Triangle t(2, 2, 3);
@@ -151,6 +184,7 @@ int main() {
 
     Shape* shapes[6] = { &c, &c2, &s, &s2, &t, &t2 };
 
+    // Талбайгаар нь эрэмбэлнэ
     bubbleSort(shapes, 6);
 
     cout << "Sorted shapes by area:" << endl;
@@ -158,13 +192,12 @@ int main() {
         shapes[i]->print();
     }
 
-    // Статик функц ашиглан нийт тоог хэвлэнэ
+    // Нийт объектын тоо хэвлэх
     cout << "\nTotal number of Shape objects: " << Shape::getObjectCount() << endl;
 
-    // Жишээ болгож утга оноож болно
+    // Жишээ болгон утгыг өөрчилж үзэх
     Shape::setObjectCount(100);
     cout << "Manually set count to 100. New count: " << Shape::getObjectCount() << endl;
 
     return 0;
 }
-//comment hhe dhdh
