@@ -133,7 +133,7 @@ public:
     }
 };
 
-
+//zulaa
 // Bubble sort
 void bubbleSort(Shape* shapes[], int n) {
     for (int i = 0; i < n - 1; i++) {
@@ -144,7 +144,6 @@ void bubbleSort(Shape* shapes[], int n) {
         }
     }
 }
-
 int main() {
     // Объектууд үүсгэнэ
     Circle c(0, 0, 5);
