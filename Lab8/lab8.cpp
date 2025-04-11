@@ -17,6 +17,7 @@ public:
         objectCount--;
     }
 
+
     static void setObjectCount(int count) {
         objectCount = count;
     }
