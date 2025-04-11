@@ -1,8 +1,9 @@
+//Soko
 #include <iostream>
 #include <cmath>
 using namespace std;
 
-// 🟦 Shape классын тодорхойлолт
+// Shape классын тодорхойлолт
 class Shape {
 protected:
     string name;
@@ -10,36 +11,35 @@ protected:
 
 public:
     Shape(string n) : name(n) {
-        objectCount++;
+        this->objectCount++;
     }
 
     virtual ~Shape() {
-        objectCount--;
+        this->objectCount--; // Объект устах үед тоо буурна
     }
 
-
     static void setObjectCount(int count) {
-        objectCount = count;
+        Shape::objectCount = count;
     }
 
     static int getObjectCount() {
-        return objectCount;
+        return Shape::objectCount;
     }
 
-    // Хийсвэр функцууд
     virtual double getArea() = 0;
     virtual double getPerimeter() = 0;
 
     virtual void print() {
-        cout << "Shape: " << name << endl;
-        cout << "Area: " << getArea() << ", Perimeter: " << getPerimeter() << endl;
+        cout << "Shape: " << this->name << endl;
+        cout << "Area: " << this->getArea() << ", Perimeter: " << this->getPerimeter() << endl;
     }
 };
 
 // Статик хувьсагчийн анхны утга
 int Shape::objectCount = 0;
 
-// 🟦 2DShape класс
+
+// 2DShape
 class TwoD : public Shape {
 protected:
     double x, y;
@@ -47,86 +47,90 @@ public:
     TwoD(string n, double xCoord, double yCoord) : Shape(n), x(xCoord), y(yCoord) {}
 };
 
-// 🟢 Circle класс
+
+// Circle
 class Circle : public TwoD {
 private:
     double radius;
 public:
     Circle(double xCoord, double yCoord, double r) : TwoD("Circle", xCoord, yCoord), radius(r) {}
-
-    double getArea() override {
-        return M_PI * radius * radius;
+    
+    double getArea() { 
+        return M_PI * this->radius * this->radius; 
     }
 
-    double getPerimeter() override {
-        return 2 * M_PI * radius;
+    double getPerimeter() { 
+        return 2 * M_PI * this->radius; 
     }
 
-    void print() override {
-        Shape::print();
-        cout << "  Center: (" << x << ", " << y << "), Radius: " << radius << endl;
+    void print() {
+        this->Shape::print();
+        cout << "  Center: (" << this->x << ", " << this->y << "), Radius: " << this->radius << endl;
     }
 };
 
-// 🟡 Square класс
+
+// Square
 class Square : public TwoD {
 private:
     double side;
     double x2, y2, x3, y3, x4, y4;
 public:
     Square(double xCoord, double yCoord, double s) : TwoD("Square", xCoord, yCoord), side(s) {
-        x2 = x + side; y2 = y;
-        x3 = x; y3 = y - side;
-        x4 = x + side; y4 = y - side;
+        this->x2 = this->x + this->side; this->y2 = this->y;
+        this->x3 = this->x; this->y3 = this->y - this->side;
+        this->x4 = this->x + this->side; this->y4 = this->y - this->side;
     }
 
-    double getArea() override {
-        return side * side;
+    double getArea() { 
+        return this->side * this->side; 
     }
 
-    double getPerimeter() override {
-        return 4 * side;
+    double getPerimeter() { 
+        return 4 * this->side; 
     }
 
-    void print() override {
-        Shape::print();
+    void print() {
+        this->Shape::print();
         cout << "  Vertices: " << endl;
-        cout << "    Top Left: (" << x << ", " << y << ")" << endl;
-        cout << "    Top Right: (" << x2 << ", " << y2 << ")" << endl;
-        cout << "    Bottom Left: (" << x3 << ", " << y3 << ")" << endl;
-        cout << "    Bottom Right: (" << x4 << ", " << y4 << ")" << endl;
+        cout << "    Top Left: (" << this->x << ", " << this->y << ")" << endl;
+        cout << "    Top Right: (" << this->x2 << ", " << this->y2 << ")" << endl;
+        cout << "    Bottom Left: (" << this->x3 << ", " << this->y3 << ")" << endl;
+        cout << "    Bottom Right: (" << this->x4 << ", " << this->y4 << ")" << endl;
     }
 };
 
-// 🔺 Triangle класс
+
+// Triangle
 class Triangle : public TwoD {
 private:
     double side;
     double x2, y2, x3, y3;
 public:
     Triangle(double xCoord, double yCoord, double s) : TwoD("Triangle", xCoord, yCoord), side(s) {
-        x2 = x - side / 2; y2 = y - sqrt(3) / 2 * side;
-        x3 = x + side / 2; y3 = y - sqrt(3) / 2 * side;
+        this->x2 = this->x - this->side / 2; this->y2 = this->y - sqrt(3) / 2 * this->side;
+        this->x3 = this->x + this->side / 2; this->y3 = this->y - sqrt(3) / 2 * this->side;
     }
 
-    double getArea() override {
-        return (sqrt(3) / 4) * side * side;
+    double getArea() { 
+        return (sqrt(3) / 4) * this->side * this->side; 
     }
 
-    double getPerimeter() override {
-        return 3 * side;
+    double getPerimeter() { 
+        return 3 * this->side; 
     }
 
-    void print() override {
-        Shape::print();
+    void print() {
+        this->Shape::print();
         cout << "  Vertices: " << endl;
-        cout << "    Top: (" << x << ", " << y << ")" << endl;
-        cout << "    Left: (" << x2 << ", " << y2 << ")" << endl;
-        cout << "    Right: (" << x3 << ", " << y3 << ")" << endl;
+        cout << "    Top: (" << this->x << ", " << this->y << ")" << endl;
+        cout << "    Left: (" << this->x2 << ", " << this->y2 << ")" << endl;
+        cout << "    Right: (" << this->x3 << ", " << this->y3 << ")" << endl;
     }
 };
 
-// 🔄 Bubble sort функц
+
+// Bubble sort
 void bubbleSort(Shape* shapes[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
@@ -137,9 +141,8 @@ void bubbleSort(Shape* shapes[], int n) {
     }
 }
 
-// 🔚 main функц
 int main() {
-    // Дүрсүүд үүсгэх
+    // Объектууд үүсгэнэ
     Circle c(0, 0, 5);
     Square s(1, 1, 4);
     Triangle t(2, 2, 3);
@@ -149,7 +152,6 @@ int main() {
 
     Shape* shapes[6] = { &c, &c2, &s, &s2, &t, &t2 };
 
-    // Талбайгаар нь эрэмбэлнэ
     bubbleSort(shapes, 6);
 
     cout << "Sorted shapes by area:" << endl;
@@ -157,13 +159,13 @@ int main() {
         shapes[i]->print();
     }
 
-    // Нийт объектын тоо хэвлэх
+    // Статик функц ашиглан нийт тоог хэвлэнэ
     cout << "\nTotal number of Shape objects: " << Shape::getObjectCount() << endl;
 
-    // Жишээ болгон утгыг өөрчилж үзэх
+    // Жишээ болгож утга оноож болно
     Shape::setObjectCount(100);
     cout << "Manually set count to 100. New count: " << Shape::getObjectCount() << endl;
-    cout<<"end"<<endl;
+
 //ghghghhhhhg
 //commentttt shuuuu
     return 0;
