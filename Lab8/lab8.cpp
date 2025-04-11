@@ -38,15 +38,19 @@ public:
 // Статик хувьсагчийн анхны утга
 int Shape::objectCount = 0;
 
-
+//zulaaa
 // 2DShape
 class TwoD : public Shape {
 protected:
     double x, y;
 public:
     TwoD(string n, double xCoord, double yCoord) : Shape(n), x(xCoord), y(yCoord) {}
-};
 
+    // Жинхэнэ хийсвэр функц дахин зарлаж байна
+    virtual double getArea() = 0;
+    virtual double getPerimeter() = 0;
+};
+//end
 
 // Circle
 class Circle : public TwoD {
