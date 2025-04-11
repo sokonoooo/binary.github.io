@@ -162,7 +162,9 @@ int main() {
     // Жишээ болгон утгыг өөрчилж үзэх
     Shape::setObjectCount(100);
     cout << "Manually set count to 100. New count: " << Shape::getObjectCount() << endl;
-
+    cout<<"end"<<endl;
+//ghghghhhhhg
+//commentttt shuuuu
     return 0;
 }
 //mickka comm biciw
