@@ -59,15 +59,15 @@ private:
 public:
     Circle(double xCoord, double yCoord, double r) : TwoD("Circle", xCoord, yCoord), radius(r) {}
     
-    double getArea() { 
+    double getArea() const override { 
         return M_PI * this->radius * this->radius; 
     }
 
-    double getPerimeter() { 
+    double getPerimeter() const override{ 
         return 2 * M_PI * this->radius; 
     }
 
-    void print() {
+    void print() const ovrride{
         this->Shape::print();
         cout << "  Center: (" << this->x << ", " << this->y << "), Radius: " << this->radius << endl;
     }
@@ -86,15 +86,15 @@ public:
         this->x4 = this->x + this->side; this->y4 = this->y - this->side;
     }
 
-    double getArea() { 
+    double getArea() const override { 
         return this->side * this->side; 
     }
 
-    double getPerimeter() { 
+    double getPerimeter() const override{ 
         return 4 * this->side; 
     }
 
-    void print() {
+    void print() const override{
         this->Shape::print();
         cout << "  Vertices: " << endl;
         cout << "    Top Left: (" << this->x << ", " << this->y << ")" << endl;
@@ -116,15 +116,15 @@ public:
         this->x3 = this->x + this->side / 2; this->y3 = this->y - sqrt(3) / 2 * this->side;
     }
 
-    double getArea() { 
+    double getArea() const override{ 
         return (sqrt(3) / 4) * this->side * this->side; 
     }
 
-    double getPerimeter() { 
+    double getPerimeter() const override{ 
         return 3 * this->side; 
     }
 
-    void print() {
+    void print() const override {
         this->Shape::print();
         cout << "  Vertices: " << endl;
         cout << "    Top: (" << this->x << ", " << this->y << ")" << endl;
