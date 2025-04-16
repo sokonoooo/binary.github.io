@@ -1,3 +1,40 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+//zulaa
+//Эх класс тодорхойлох
+class Person {
+private:
+    //гишүүн өгөгдлүүд
+    string name;
+    string ssnum;
+    int age;
+
+public:
+    // Getter функцүүд
+    string getName() {
+        return name;
+    }
+    string getSSNum() {
+        return ssnum;
+    }
+    int getAge() {
+        return age;
+    }
+    // Setter функцүүд
+    void setName(string n) {
+        name = n;
+    }
+    void setSSNum(string ss) {
+        ssnum = ss;
+    }
+    void setAge(int a) {
+        age = a;
+    }
+};
+//.
 
 // Класс хоорондын харилцааны жишээ:
 class person{ char *name; }
