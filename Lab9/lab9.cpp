@@ -35,13 +35,47 @@ public:
     }
 };
 //.
+//soko
+//udamshsan classud
+class spouse : public Person {
+    string annDate;
 
+public:
+    spouse(string n, string s, int a, string date)
+        : Person(n, s, a), annDate(date) {}
+
+    string getAnniversaryDate() { return annDate; }
+};
+class child : public Person {
+    string favToy;
+
+public:
+    child(string n, string s, int a, string toy)
+        : Person(n, s, a), favToy(toy) {}
+
+    string getFavoriteToy() { return favToy; }
+};
+class division {
+    string divisionName;
+
+public:
+    division(string name) : divisionName(name) {}
+    string getDivisionName() { return divisionName; }
+};
+class jd {
+    string description;
+
+public:
+    jd(string desc) : description(desc) {}
+    string getDescription() { return description; }
+};
+//.
 // Класс хоорондын харилцааны жишээ:
-class person{ char *name; }
-class spouse:public person { int annDate; }
-class child: public person { char * favToy; }
-class division{ ... }
-class jd { ... }
+// class person{ char *name; }
+// class spouse:public person { int annDate; }
+// class child: public person { char * favToy; }
+// class division{ ... }
+// class jd { ... }
 
 class employee : public person{
     spouse *s; // 0..1    
