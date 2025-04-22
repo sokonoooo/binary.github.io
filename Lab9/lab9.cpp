@@ -4,7 +4,7 @@
 using namespace std;
 
 //zulaa
-//Эх класс тодорхойлох
+//Эх класс тодорхойлох 
 class Person {
 private:
     //гишүүн өгөгдлүүд
